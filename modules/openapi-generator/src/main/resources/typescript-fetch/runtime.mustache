@@ -28,12 +28,13 @@ export interface ConfigurationParameters {
 export interface AwsV4SignerParameters {
     accessKeyId: string;
     secretAccessKey: string;
+    region: string;
     service?: string;
 }
 
 export class AwsV4Signer {
     constructor(private configuration: AwsV4SignerParameters) {}
-    async sign(method: string, url: string, headers: HTTPHeaders, body: any, region?: string): Promise<{url: URL, headers: HTTPHeaders}> {
+    async sign(method: string, url: string, headers: HTTPHeaders, body: any): Promise<{url: URL, headers: HTTPHeaders}> {
         const signer = new AwsV4SignerLib({
             method: method,
             url: url,
@@ -42,7 +43,7 @@ export class AwsV4Signer {
             accessKeyId: this.configuration.accessKeyId,
             secretAccessKey: this.configuration.secretAccessKey,
             service: this.configuration.service,
-            region: region,
+            region: this.configuration.region,
         });
         const signResult = await signer.sign();
         // Convert Headers to HTTPHeaders
