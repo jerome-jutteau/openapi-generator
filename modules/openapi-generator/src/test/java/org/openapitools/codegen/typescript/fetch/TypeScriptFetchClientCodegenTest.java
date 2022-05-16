@@ -133,4 +133,19 @@ public class TypeScriptFetchClientCodegenTest {
         assertThat(codegen.supportingFiles()).contains(new SupportingFile("tsconfig.mustache", "", "tsconfig.json"));
         assertThat(codegen.supportingFiles()).doesNotContain(new SupportingFile("tsconfig.esm.mustache", "", "tsconfig.esm.json"));
     }
+
+    @Test
+    public void testWithoutAWSV4Signature() {
+        TypeScriptFetchClientCodegen codegen = new TypeScriptFetchClientCodegen();
+
+        codegen.additionalProperties().put("npmName", "@openapi/typescript-fetch-petstore");
+        codegen.additionalProperties().put("snapshot", false);
+        codegen.additionalProperties().put("npmVersion", "1.0.0-SNAPSHOT");
+        codegen.setWithAWSV4Signature(false);
+
+        codegen.processOpts();
+
+        assertThat(codegen.supportingFiles()).contains(new SupportingFile("tsconfig.mustache", "", "tsconfig.json"));
+        assertThat(codegen.supportingFiles()).doesNotContain(new SupportingFile("tsconfig.esm.mustache", "", "tsconfig.esm.json"));
+    }
 }

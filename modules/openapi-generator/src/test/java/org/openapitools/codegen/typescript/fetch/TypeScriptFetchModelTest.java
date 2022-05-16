@@ -386,4 +386,15 @@ public class TypeScriptFetchModelTest {
 
         Assert.assertEquals(codegen.getTypeDeclaration(model), "{ [key: string]: string; }");
     }
+
+
+    @Test(description = "Don't add AWSv4 signature support by default")
+    public void testWithoutAWSV4SignatureAdditionalProps() {
+        final Schema model = new Schema()
+                .additionalProperties(new StringSchema());
+        final DefaultCodegen codegen = new TypeScriptFetchClientCodegen();
+        codegen.additionalProperties().put("withAWSV4Signature", false);
+        codegen.processOpts();
+        Assert.assertEquals(codegen.getTypeDeclaration(model), "{ [key: string]: string; }");
+    }
 }
