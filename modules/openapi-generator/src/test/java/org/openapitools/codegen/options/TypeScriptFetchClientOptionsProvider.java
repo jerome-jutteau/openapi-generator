@@ -43,6 +43,7 @@ public class TypeScriptFetchClientOptionsProvider implements OptionsProvider {
     public static final String SAGAS_AND_RECORDS = "false";
     public static final String ENUM_UNKNOWN_DEFAULT_CASE_VALUE = "false";
     public static final String STRING_ENUMS = "false";
+    public static final String WITH_AWSV4_SIGNATURE = "false";
 
     @Override
     public String getLanguage() {

@@ -183,6 +183,10 @@ public class TypeScriptFetchClientCodegen extends AbstractTypeScriptClientCodege
         this.packageAsSourceOnlyLibrary = packageAsSourceOnlyLibrary;
     }
 
+    public void setWithAWSV4Signature(boolean withAWSV4Signature) {
+        this.withAWSV4Signature = withAWSV4Signature;
+    }
+
     public boolean isUniqueIdAccordingToNameSuffix(String name) {
         if (name == null) {
             return false;
@@ -269,7 +273,7 @@ public class TypeScriptFetchClientCodegen extends AbstractTypeScriptClientCodege
             }
         }
         if (additionalProperties.containsKey(CodegenConstants.WITH_AWSV4_SIGNATURE_COMMENT)) {
-            this.withAWSV4Signature = convertPropertyToBoolean(CodegenConstants.WITH_AWSV4_SIGNATURE_COMMENT);
+            this.setWithAWSV4Signature(convertPropertyToBoolean(CodegenConstants.WITH_AWSV4_SIGNATURE_COMMENT));
         }
     }
 
