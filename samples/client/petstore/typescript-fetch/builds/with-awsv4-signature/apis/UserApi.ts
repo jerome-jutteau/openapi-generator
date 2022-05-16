@@ -81,6 +81,15 @@ export class UserApi extends runtime.BaseAPI {
             query: queryParameters,
             body: body,
         }
+        if (this.configuration && this.configuration.awsV4SignerParameters) {
+            const SignUrl = this.configuration.basePath + request.path;
+            const SignBody = JSON.stringify(request.body);
+            const signer = new runtime.AwsV4Signer(this.configuration.awsV4SignerParameters);
+            const signResult = await signer.sign('POST', SignUrl, headerParameters, SignBody);
+            //request.url = signResult.url;
+            //request.method = signResult.method;
+            request.headers = signResult.headers;
+        }
         const response = await this.request(request, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -90,8 +99,8 @@ export class UserApi extends runtime.BaseAPI {
      * This can only be done by the logged in user.
      * Create user
      */
-    async createUser(body: User, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<void> {
-        await this.createUserRaw({ body: body }, initOverrides);
+    async createUser(requestParameters: CreateUserRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<void> {
+        await this.createUserRaw(requestParameters, initOverrides);
     }
 
     /**
@@ -119,6 +128,15 @@ export class UserApi extends runtime.BaseAPI {
             query: queryParameters,
             body: body,
         }
+        if (this.configuration && this.configuration.awsV4SignerParameters) {
+            const SignUrl = this.configuration.basePath + request.path;
+            const SignBody = JSON.stringify(request.body);
+            const signer = new runtime.AwsV4Signer(this.configuration.awsV4SignerParameters);
+            const signResult = await signer.sign('POST', SignUrl, headerParameters, SignBody);
+            //request.url = signResult.url;
+            //request.method = signResult.method;
+            request.headers = signResult.headers;
+        }
         const response = await this.request(request, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -127,8 +145,8 @@ export class UserApi extends runtime.BaseAPI {
     /**
      * Creates list of users with given input array
      */
-    async createUsersWithArrayInput(body: Array<User>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<void> {
-        await this.createUsersWithArrayInputRaw({ body: body }, initOverrides);
+    async createUsersWithArrayInput(requestParameters: CreateUsersWithArrayInputRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<void> {
+        await this.createUsersWithArrayInputRaw(requestParameters, initOverrides);
     }
 
     /**
@@ -156,6 +174,15 @@ export class UserApi extends runtime.BaseAPI {
             query: queryParameters,
             body: body,
         }
+        if (this.configuration && this.configuration.awsV4SignerParameters) {
+            const SignUrl = this.configuration.basePath + request.path;
+            const SignBody = JSON.stringify(request.body);
+            const signer = new runtime.AwsV4Signer(this.configuration.awsV4SignerParameters);
+            const signResult = await signer.sign('POST', SignUrl, headerParameters, SignBody);
+            //request.url = signResult.url;
+            //request.method = signResult.method;
+            request.headers = signResult.headers;
+        }
         const response = await this.request(request, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -164,8 +191,8 @@ export class UserApi extends runtime.BaseAPI {
     /**
      * Creates list of users with given input array
      */
-    async createUsersWithListInput(body: Array<User>, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<void> {
-        await this.createUsersWithListInputRaw({ body: body }, initOverrides);
+    async createUsersWithListInput(requestParameters: CreateUsersWithListInputRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<void> {
+        await this.createUsersWithListInputRaw(requestParameters, initOverrides);
     }
 
     /**
@@ -190,6 +217,15 @@ export class UserApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
         }
+        if (this.configuration && this.configuration.awsV4SignerParameters) {
+            const SignUrl = this.configuration.basePath + request.path;
+            const SignBody = null;
+            const signer = new runtime.AwsV4Signer(this.configuration.awsV4SignerParameters);
+            const signResult = await signer.sign('DELETE', SignUrl, headerParameters, SignBody);
+            //request.url = signResult.url;
+            //request.method = signResult.method;
+            request.headers = signResult.headers;
+        }
         const response = await this.request(request, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -199,8 +235,8 @@ export class UserApi extends runtime.BaseAPI {
      * This can only be done by the logged in user.
      * Delete user
      */
-    async deleteUser(username: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<void> {
-        await this.deleteUserRaw({ username: username }, initOverrides);
+    async deleteUser(requestParameters: DeleteUserRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<void> {
+        await this.deleteUserRaw(requestParameters, initOverrides);
     }
 
     /**
@@ -224,6 +260,15 @@ export class UserApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
         }
+        if (this.configuration && this.configuration.awsV4SignerParameters) {
+            const SignUrl = this.configuration.basePath + request.path;
+            const SignBody = null;
+            const signer = new runtime.AwsV4Signer(this.configuration.awsV4SignerParameters);
+            const signResult = await signer.sign('GET', SignUrl, headerParameters, SignBody);
+            //request.url = signResult.url;
+            //request.method = signResult.method;
+            request.headers = signResult.headers;
+        }
         const response = await this.request(request, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UserFromJSON(jsonValue));
@@ -232,8 +277,8 @@ export class UserApi extends runtime.BaseAPI {
     /**
      * Get user by user name
      */
-    async getUserByName(username: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<User> {
-        const response = await this.getUserByNameRaw({ username: username }, initOverrides);
+    async getUserByName(requestParameters: GetUserByNameRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<User> {
+        const response = await this.getUserByNameRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -270,6 +315,15 @@ export class UserApi extends runtime.BaseAPI {
             headers: headerParameters,
             query: queryParameters,
         }
+        if (this.configuration && this.configuration.awsV4SignerParameters) {
+            const SignUrl = this.configuration.basePath + request.path;
+            const SignBody = null;
+            const signer = new runtime.AwsV4Signer(this.configuration.awsV4SignerParameters);
+            const signResult = await signer.sign('GET', SignUrl, headerParameters, SignBody);
+            //request.url = signResult.url;
+            //request.method = signResult.method;
+            request.headers = signResult.headers;
+        }
         const response = await this.request(request, initOverrides);
 
         return new runtime.TextApiResponse(response) as any;
@@ -278,8 +332,8 @@ export class UserApi extends runtime.BaseAPI {
     /**
      * Logs user into the system
      */
-    async loginUser(username: string, password: string, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<string> {
-        const response = await this.loginUserRaw({ username: username, password: password }, initOverrides);
+    async loginUser(requestParameters: LoginUserRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<string> {
+        const response = await this.loginUserRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -299,6 +353,15 @@ export class UserApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
+        }
+        if (this.configuration && this.configuration.awsV4SignerParameters) {
+            const SignUrl = this.configuration.basePath + request.path;
+            const SignBody = null;
+            const signer = new runtime.AwsV4Signer(this.configuration.awsV4SignerParameters);
+            const signResult = await signer.sign('GET', SignUrl, headerParameters, SignBody);
+            //request.url = signResult.url;
+            //request.method = signResult.method;
+            request.headers = signResult.headers;
         }
         const response = await this.request(request, initOverrides);
 
@@ -342,6 +405,15 @@ export class UserApi extends runtime.BaseAPI {
             query: queryParameters,
             body: body,
         }
+        if (this.configuration && this.configuration.awsV4SignerParameters) {
+            const SignUrl = this.configuration.basePath + request.path;
+            const SignBody = JSON.stringify(request.body);
+            const signer = new runtime.AwsV4Signer(this.configuration.awsV4SignerParameters);
+            const signResult = await signer.sign('PUT', SignUrl, headerParameters, SignBody);
+            //request.url = signResult.url;
+            //request.method = signResult.method;
+            request.headers = signResult.headers;
+        }
         const response = await this.request(request, initOverrides);
 
         return new runtime.VoidApiResponse(response);
@@ -351,8 +423,8 @@ export class UserApi extends runtime.BaseAPI {
      * This can only be done by the logged in user.
      * Updated user
      */
-    async updateUser(username: string, body: User, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<void> {
-        await this.updateUserRaw({ username: username, body: body }, initOverrides);
+    async updateUser(requestParameters: UpdateUserRequest, initOverrides?: RequestInit | runtime.InitOverideFunction): Promise<void> {
+        await this.updateUserRaw(requestParameters, initOverrides);
     }
 
 }

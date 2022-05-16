@@ -301,6 +301,7 @@ export class {{classname}} extends runtime.BaseAPI {
         if (this.configuration && this.configuration.awsV4SignerParameters) {
             const SignUrl = this.configuration.basePath + request.path;
             {{#bodyParam}}
+            {{#hasBodyParam}}
             {{^withoutRuntimeChecks}}
             const SignBody = JSON.stringify(request.body);
             {{/withoutRuntimeChecks}}
@@ -308,6 +309,7 @@ export class {{classname}} extends runtime.BaseAPI {
             const SignBody = request.body;
             {{/withoutRuntimeChecks}}
             {{/hasBodyParam}}
+            {{/bodyParam}}
             {{^bodyParam}}
             const SignBody = null;
             {{/bodyParam}}

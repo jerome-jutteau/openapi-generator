@@ -2,7 +2,7 @@
 /* eslint-disable */
 /**
  * OpenAPI Petstore
- * This spec is mainly for testing Petstore server and contains fake endpoints, models. Please do not use this for any other purpose. Special characters: \" \\
+ * This is a sample server Petstore server. For this sample, you can use the api key `special-key` to test the authorization filters.
  *
  * The version of the OpenAPI document: 1.0.0
  * 
@@ -13,8 +13,9 @@
  */
 
 
+import { AwsV4Signer as AwsV4SignerLib }  from "aws4fetch";
 
-export const BASE_PATH = "http://petstore.swagger.io:80/v2".replace(/\/+$/, "");
+export const BASE_PATH = "http://petstore.swagger.io/v2".replace(/\/+$/, "");
 
 export interface ConfigurationParameters {
     basePath?: string; // override base path
@@ -27,8 +28,38 @@ export interface ConfigurationParameters {
     accessToken?: string | Promise<string> | ((name?: string, scopes?: string[]) => string | Promise<string>); // parameter for oauth2 security
     headers?: HTTPHeaders; //header params we want to use on every request
     credentials?: RequestCredentials; //value for the credentials param we want to use on each request
+    awsV4SignParameters?: AwsV4SignerParameters; // parameter for aws v4 signature security
 }
 
+export interface AwsV4SignerParameters {
+    accessKeyId: string;
+    secretAccessKey: string;
+    region: string;
+    service?: string;
+}
+
+export class AwsV4Signer {
+    constructor(private configuration: AwsV4SignerParameters) {}
+    async sign(method: string, url: string, headers: HTTPHeaders, body: any): Promise<{url: URL, headers: HTTPHeaders}> {
+        const signer = new AwsV4SignerLib({
+            method: method,
+            url: url,
+            headers: headers,
+            body: body,
+            accessKeyId: this.configuration.accessKeyId,
+            secretAccessKey: this.configuration.secretAccessKey,
+            service: this.configuration.service,
+            region: this.configuration.region,
+        });
+        const signResult = await signer.sign();
+        // Convert Headers to HTTPHeaders
+        let newHeaders: HTTPHeaders = {};
+        for (const [key, value] of signResult.headers.entries()) {
+            newHeaders[key] = value;
+        }
+        return {url: signResult.url, headers: newHeaders};
+    }
+}
 
 export class Configuration {
     constructor(private configuration: ConfigurationParameters = {}) {}
@@ -83,6 +114,9 @@ export class Configuration {
 
     get credentials(): RequestCredentials | undefined {
         return this.configuration.credentials;
+    }
+    get awsV4SignerParameters(): AwsV4SignerParameters | undefined {
+        return this.configuration.awsV4SignParameters;
     }
 }
 

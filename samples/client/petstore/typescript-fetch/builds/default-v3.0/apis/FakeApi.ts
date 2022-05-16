@@ -154,12 +154,16 @@ export class FakeApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        const response = await this.request({
+
+
+
+        const request: runtime.RequestOpts = {
             path: `/fake/health`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }
+        const response = await this.request(request, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => HealthCheckResultFromJSON(jsonValue));
     }
@@ -194,13 +198,18 @@ export class FakeApi extends runtime.BaseAPI {
             headerParameters['header_1'] = String(requestParameters.header1);
         }
 
-        const response = await this.request({
+
+
+        const body: any = PetToJSON(requestParameters.pet),
+
+        const request: runtime.RequestOpts = {
             path: `/fake/http-signature-test`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-            body: PetToJSON(requestParameters.pet),
-        }, initOverrides);
+            body: body,
+        }
+        const response = await this.request(request, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -222,13 +231,18 @@ export class FakeApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
-        const response = await this.request({
+
+
+        const body: any = requestParameters.body as any,
+
+        const request: runtime.RequestOpts = {
             path: `/fake/outer/boolean`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: requestParameters.body as any,
-        }, initOverrides);
+            body: body,
+        }
+        const response = await this.request(request, initOverrides);
 
         return new runtime.TextApiResponse(response) as any;
     }
@@ -251,13 +265,18 @@ export class FakeApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
-        const response = await this.request({
+
+
+        const body: any = OuterCompositeToJSON(requestParameters.outerComposite),
+
+        const request: runtime.RequestOpts = {
             path: `/fake/outer/composite`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: OuterCompositeToJSON(requestParameters.outerComposite),
-        }, initOverrides);
+            body: body,
+        }
+        const response = await this.request(request, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => OuterCompositeFromJSON(jsonValue));
     }
@@ -280,13 +299,18 @@ export class FakeApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
-        const response = await this.request({
+
+
+        const body: any = requestParameters.body as any,
+
+        const request: runtime.RequestOpts = {
             path: `/fake/outer/number`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: requestParameters.body as any,
-        }, initOverrides);
+            body: body,
+        }
+        const response = await this.request(request, initOverrides);
 
         return new runtime.TextApiResponse(response) as any;
     }
@@ -309,13 +333,18 @@ export class FakeApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
-        const response = await this.request({
+
+
+        const body: any = requestParameters.body as any,
+
+        const request: runtime.RequestOpts = {
             path: `/fake/outer/string`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: requestParameters.body as any,
-        }, initOverrides);
+            body: body,
+        }
+        const response = await this.request(request, initOverrides);
 
         return new runtime.TextApiResponse(response) as any;
     }
@@ -342,13 +371,18 @@ export class FakeApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
-        const response = await this.request({
+
+
+        const body: any = OuterObjectWithEnumPropertyToJSON(requestParameters.outerObjectWithEnumProperty),
+
+        const request: runtime.RequestOpts = {
             path: `/fake/property/enum-int`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: OuterObjectWithEnumPropertyToJSON(requestParameters.outerObjectWithEnumProperty),
-        }, initOverrides);
+            body: body,
+        }
+        const response = await this.request(request, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => OuterObjectWithEnumPropertyFromJSON(jsonValue));
     }
@@ -375,13 +409,18 @@ export class FakeApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'image/png';
 
-        const response = await this.request({
+
+
+        const body: any = requestParameters.body as any,
+
+        const request: runtime.RequestOpts = {
             path: `/fake/body-with-binary`,
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: requestParameters.body as any,
-        }, initOverrides);
+            body: body,
+        }
+        const response = await this.request(request, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -407,13 +446,18 @@ export class FakeApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
-        const response = await this.request({
+
+
+        const body: any = FileSchemaTestClassToJSON(requestParameters.fileSchemaTestClass),
+
+        const request: runtime.RequestOpts = {
             path: `/fake/body-with-file-schema`,
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: FileSchemaTestClassToJSON(requestParameters.fileSchemaTestClass),
-        }, initOverrides);
+            body: body,
+        }
+        const response = await this.request(request, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -446,13 +490,18 @@ export class FakeApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
-        const response = await this.request({
+
+
+        const body: any = UserToJSON(requestParameters.user),
+
+        const request: runtime.RequestOpts = {
             path: `/fake/body-with-query-params`,
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-            body: UserToJSON(requestParameters.user),
-        }, initOverrides);
+            body: body,
+        }
+        const response = await this.request(request, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -478,13 +527,18 @@ export class FakeApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
-        const response = await this.request({
+
+
+        const body: any = ClientToJSON(requestParameters.client),
+
+        const request: runtime.RequestOpts = {
             path: `/fake`,
             method: 'PATCH',
             headers: headerParameters,
             query: queryParameters,
-            body: ClientToJSON(requestParameters.client),
-        }, initOverrides);
+            body: body,
+        }
+        const response = await this.request(request, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ClientFromJSON(jsonValue));
     }
@@ -598,13 +652,18 @@ export class FakeApi extends runtime.BaseAPI {
             formParams.append('callback', requestParameters.callback as any);
         }
 
-        const response = await this.request({
+
+
+        const body: any = formParams,
+
+        const request: runtime.RequestOpts = {
             path: `/fake`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: formParams,
-        }, initOverrides);
+            body: body,
+        }
+        const response = await this.request(request, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -676,13 +735,18 @@ export class FakeApi extends runtime.BaseAPI {
             formParams.append('enum_form_string', requestParameters.enumFormString as any);
         }
 
-        const response = await this.request({
+
+
+        const body: any = formParams,
+
+        const request: runtime.RequestOpts = {
             path: `/fake`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-            body: formParams,
-        }, initOverrides);
+            body: body,
+        }
+        const response = await this.request(request, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -748,12 +812,16 @@ export class FakeApi extends runtime.BaseAPI {
                 headerParameters["Authorization"] = `Bearer ${tokenString}`;
             }
         }
-        const response = await this.request({
+
+
+
+        const request: runtime.RequestOpts = {
             path: `/fake`,
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }
+        const response = await this.request(request, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -781,13 +849,18 @@ export class FakeApi extends runtime.BaseAPI {
 
         headerParameters['Content-Type'] = 'application/json';
 
-        const response = await this.request({
+
+
+        const body: any = requestParameters.requestBody,
+
+        const request: runtime.RequestOpts = {
             path: `/fake/inline-additionalProperties`,
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: requestParameters.requestBody,
-        }, initOverrides);
+            body: body,
+        }
+        const response = await this.request(request, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -839,13 +912,18 @@ export class FakeApi extends runtime.BaseAPI {
             formParams.append('param2', requestParameters.param2 as any);
         }
 
-        const response = await this.request({
+
+
+        const body: any = formParams,
+
+        const request: runtime.RequestOpts = {
             path: `/fake/jsonFormData`,
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
-            body: formParams,
-        }, initOverrides);
+            body: body,
+        }
+        const response = await this.request(request, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
@@ -918,12 +996,16 @@ export class FakeApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
-        const response = await this.request({
+
+
+
+        const request: runtime.RequestOpts = {
             path: `/fake/test-query-parameters`,
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
-        }, initOverrides);
+        }
+        const response = await this.request(request, initOverrides);
 
         return new runtime.VoidApiResponse(response);
     }
