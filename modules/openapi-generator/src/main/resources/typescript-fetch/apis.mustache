@@ -260,29 +260,29 @@ export class {{classname}} extends runtime.BaseAPI {
         {{#bodyParam}}
         {{#isContainer}}
         {{^withoutRuntimeChecks}}
-        const body: any = requestParameters.{{paramName}}{{#isArray}}{{#items}}{{^isPrimitiveType}}.map({{datatype}}ToJSON){{/isPrimitiveType}}{{/items}}{{/isArray}},
+        const body: any = requestParameters.{{paramName}}{{#isArray}}{{#items}}{{^isPrimitiveType}}.map({{datatype}}ToJSON){{/isPrimitiveType}}{{/items}}{{/isArray}};
         {{/withoutRuntimeChecks}}
         {{#withoutRuntimeChecks}}
-        const body: any = requestParameters.{{paramName}},
+        const body: any = requestParameters.{{paramName}};
         {{/withoutRuntimeChecks}}
         {{/isContainer}}
         {{^isContainer}}
         {{^isPrimitiveType}}
         {{^withoutRuntimeChecks}}
-        const body: any = {{dataType}}ToJSON(requestParameters.{{paramName}}),
+        const body: any = {{dataType}}ToJSON(requestParameters.{{paramName}});
         {{/withoutRuntimeChecks}}
         {{#withoutRuntimeChecks}}
-        const body: any = requestParameters.{{paramName}},
+        const body: any = requestParameters.{{paramName}};
         {{/withoutRuntimeChecks}}
         {{/isPrimitiveType}}
         {{#isPrimitiveType}}
-        const body: any = requestParameters.{{paramName}} as any,
+        const body: any = requestParameters.{{paramName}} as any;
         {{/isPrimitiveType}}
         {{/isContainer}}
         {{/bodyParam}}
         {{/hasBodyParam}}
         {{#hasFormParams}}
-        const body: any = formParams,
+        const body: any = formParams;
         {{/hasFormParams}}
 
         const request: runtime.RequestOpts = {
